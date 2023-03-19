@@ -171,7 +171,7 @@ IncludeTemplateLangFile(__FILE__);
 
 <?if($APPLICATION->GetCurPage(true) != "/index.php"):?>
 						<header>
-                            <h1>Заголовок страницы</h1>
+                            <h1>Заголовок страницы <?$APPLICATION->ShowTitle(false);?></h1>
                         </header>
                         <hr>
 <?endif;?>
