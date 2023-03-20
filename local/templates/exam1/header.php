@@ -8,7 +8,7 @@ IncludeTemplateLangFile(__FILE__);
 <!--<meta http-equiv="X-UA-Compatible" content="IE=edge" />-->
 <?$APPLICATION->ShowHead();?>
  
-<?$APPLICATION->ShowHead();?>
+
 <?$APPLICATION->ShowCSS();?>
    <!-- <meta charset="utf-8" />
     <meta name="keywords" content="">
@@ -26,8 +26,14 @@ IncludeTemplateLangFile(__FILE__);
 	
 	
 	
+	<?$APPLICATION -> AddHeadScript("/local/templates/.default/js/html5shiv.min.js")?>
+	
 	<?$APPLICATION -> AddHeadScript("/local/templates/.default/js/jquery.min.js")?>
+	
 	<?$APPLICATION -> AddHeadScript("/local/templates/.default/js/owl.carousel.min.js")?>
+	
+	<?$APPLICATION -> AddHeadScript("/local/templates/.default/js/respond.min.js")?>
+	
 	<?$APPLICATION -> AddHeadScript("/local/templates/.default/js/scripts.js")?>
    <!-- <script src="./js/jquery.min.js"></script>
     <script src="./js/owl.carousel.min.js"></script>
@@ -55,12 +61,15 @@ IncludeTemplateLangFile(__FILE__);
                 <div class="main-phone-block">
 					<?
 					$myDate = getDate();
+					  
 					
-					if($mydate > 9 and $mydate<18):?>
+					if($myDate["hours"] >= 9 && $myDate["hours"] <=18):?>
 					
-					<a href="tel:84952128506" class="phone">8 (495) 212-85-06</a>
+					 <a href="tel:84952128506" class="phone">8 (495) 212-85-06</a> 
+					 
 					<?else:?>
-					<a href="mailto:store@store.ru" class="phone">store@store.ru</a>
+					 <a href="mailto:store@store.ru" class="phone">store@store.ru</a> 
+					
 					<?endif;?>
 					
                      
@@ -76,29 +85,18 @@ IncludeTemplateLangFile(__FILE__);
                         <input type="text" placeholder="Поиск">
                         <button type="submit"></button>
                     </form>
-                    <nav class="menu-block">
-                        <ul>
-                            <li class="att popup-wrap">
-                                <a id="hd_singin_but_open" href="" class="btn-toggle">Войти на сайт</a>
-                                <form action="/" class="frm-login popup-block">
-                                    <div class="frm-title">Войти на сайт</div>
-                                    <a href="" class="btn-close">Закрыть</a>
-                                    <div class="frm-row"><input type="text" placeholder="Логин"></div>
-                                    <div class="frm-row"><input type="password" placeholder="Пароль"></div>
-                                    <div class="frm-row"><a href="" class="btn-forgot">Забыли пароль</a></div>
-                                    <div class="frm-row">
-                                        <div class="frm-chk">
-                                            <input type="checkbox" id="login">
-                                            <label for="login">Запомнить меня</label>
-                                        </div>
-                                    </div>
-                                    <div class="frm-row"><input type="submit" value="Войти"></div>
-                                </form>
-                            </li>
-                            <li><a href="">Зарегистрироваться</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <?$APPLICATION->IncludeComponent(
+	"bitrix:system.auth.form", 
+	"demo", 
+	array(
+		"FORGOT_PASSWORD_URL" => "/login/?forgot_password=yes",
+		"PROFILE_URL" => "/login/user.php",
+		"REGISTER_URL" => "/login/?register=yes",
+		"SHOW_ERRORS" => "N",
+		"COMPONENT_TEMPLATE" => "demo"
+	),
+	false
+);?>
                 </div>
             </div>
         </header>
@@ -165,16 +163,22 @@ IncludeTemplateLangFile(__FILE__);
             <div class="content-box">
                 <!-- content -->
                 <div class="content">
-					
-					<?if($APPLICATION->GetCurPage(true) == "/index.php"):?>
-                    <div class="cnt">
-
-<?if($APPLICATION->GetCurPage(true) != "/index.php"):?>
+					<div class="cnt">
+						
+						<?if($APPLICATION->GetCurPage(true) != "/index.php"):?>
 						<header>
-                            <h1>Заголовок страницы <?$APPLICATION->ShowTitle(false);?></h1>
+                           <h1><?php $APPLICATION->ShowTitle(false); /* Выводим «Заголовок страницы» */ ?></h1>
                         </header>
                         <hr>
 <?endif;?>
+						
+						
+						
+						
+					<?if($APPLICATION->GetCurPage(true) == "/index.php"):?>
+                     
+
+
 
 						<p>«Мебельная компания» осуществляет производство мебели на высококлассном оборудовании с применением минимальной доли ручного труда, что позволяет обеспечить высокое качество нашей продукции. Налажен производственный процесс как массового и индивидуального характера, что с одной стороны позволяет обеспечить постоянную номенклатуру изделий и индивидуальный подход – с другой.
 						</p>
@@ -328,100 +332,6 @@ IncludeTemplateLangFile(__FILE__);
 		                <!-- /afisha box -->
                                 
 				                               
-                    </div>
+                    
 					<?endif;?>
-                </div>
-                <!-- /content -->
-                <!-- side -->
-                <div class="side">
-					<?$APPLICATION->IncludeComponent(
-	"bitrix:menu",
-	"left",
-	Array(
-		"ALLOW_MULTI_SELECT" => "N",
-		"CHILD_MENU_TYPE" => "left",
-		"DELAY" => "N",
-		"MAX_LEVEL" => "1",
-		"MENU_CACHE_GET_VARS" => array(""),
-		"MENU_CACHE_TIME" => "36000",
-		"MENU_CACHE_TYPE" => "Y",
-		"MENU_CACHE_USE_GROUPS" => "Y",
-		"ROOT_MENU_TYPE" => "left",
-		"USE_EXT" => "Y"
-	)
-);?>
-                    <!-- side anonse -->
-                    <div class="side-block side-anonse">
-                        <div class="title-block"><span class="i i-title01"></span>Полезная информация!</div>
-                        <div class="item">
-                            <p>Клиенты предпочитают все больше эко-материалов.</p>
-                        </div>
-                    </div>
-                    <!-- /side anonse -->
-                    <!-- side wrap -->
-                    <div class="side-wrap">
-                        <div class="item-wrap">
-                            <!-- side action -->
-                            <div class="side-block side-action">
-                                <img src="/local/templates/.default/img/side-action-bg.jpg" alt="" class="bg">
-                                <div class="photo-block">
-                                    <img src="/local/templates/.default/img/side-action.jpg" alt="">
-                                </div>
-                                <div class="text-block">
-                                    <div class="title">Акция!</div>
-                                    <p>Мебельная полка всего за 560 <span class="r">a</span>
-                                    </p>
-                                </div>
-                                <a href="" class="btn-more">подробнее</a>
-                            </div>
-                            <!-- /side action -->
-                        </div>
-                                              
-                       <!-- footer rew slider box -->
-                       <div class="item-wrap">
-		                     <div class="rew-footer-carousel">
-								<div class="item">
-									<div class="side-block side-opin">
-										<div class="inner-block">
-											<div class="title">
-												<div class="photo-block">
-													<img src="/local/templates/.default/img/side-opin.jpg" alt="">
-												</div>
-												<div class="name-block"><a href="">Дмитрий Иванов</a></div>
-												<div class="pos-block">Генеральный директор,"Офис+"</div>
-											</div>
-											<div class="text-block">“В магзине предоставили потрясающий выбор
-												расцветок, а также, получил большую скидку по карте постоянного...</div>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="side-block side-opin">
-										<div class="inner-block">
-											<div class="title">
-												<div class="photo-block">
-													<img src="/local/templates/.default/img/side-opin.jpg" alt="">
-												</div>
-												<div class="name-block"><a href="">Дмитрий Иванов</a></div>
-												<div class="pos-block">Генеральный директор,"Офис+"</div>
-											</div>
-											<div class="text-block">“В магазине предоставили потрясающий выбор
-												расцветок, а также, получил большую скидку по карте постоянного...</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- / footer rew slider box --> 
-                    </div>
-                    <!-- /side wrap -->
-                </div>
-                <!-- /side -->
-            </div>
-            <!-- /content box -->
-        </div>
-        <!-- /page -->
-        <div class="empty"></div>
-    </div>
-    
-</body>
+					 
